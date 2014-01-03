@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "004491EA1874A12C008D2273"
-               BuildableName = "RRMMailLink.bundle"
+               BuildableName = "RRMMailLink.mailbundle"
                BlueprintName = "RRMMailLink"
                ReferencedContainer = "container:RRMMailLink.xcodeproj">
             </BuildableReference>

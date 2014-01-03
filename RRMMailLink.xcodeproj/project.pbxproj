@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		004491EF1874A12C008D2273 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004491EE1874A12C008D2273 /* Cocoa.framework */; };
 		004491F91874A12C008D2273 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 004491F71874A12C008D2273 /* InfoPlist.strings */; };
+		004492021874A16B008D2273 /* RRMMailLinkPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 004492011874A16B008D2273 /* RRMMailLinkPlugin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		004491EB1874A12C008D2273 /* RRMMailLink.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RRMMailLink.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		004491EB1874A12C008D2273 /* RRMMailLink.mailbundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RRMMailLink.mailbundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		004491EE1874A12C008D2273 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		004491F11874A12C008D2273 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		004491F21874A12C008D2273 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -20,6 +21,9 @@
 		004491F61874A12C008D2273 /* RRMMailLink-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RRMMailLink-Info.plist"; sourceTree = "<group>"; };
 		004491F81874A12C008D2273 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		004491FA1874A12C008D2273 /* RRMMailLink-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RRMMailLink-Prefix.pch"; sourceTree = "<group>"; };
+		004492001874A16B008D2273 /* RRMMailLinkPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRMMailLinkPlugin.h; sourceTree = "<group>"; };
+		004492011874A16B008D2273 /* RRMMailLinkPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRMMailLinkPlugin.m; sourceTree = "<group>"; };
+		00D019961876F17200D55138 /* HyperlinkEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HyperlinkEditor.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +50,7 @@
 		004491EC1874A12C008D2273 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				004491EB1874A12C008D2273 /* RRMMailLink.bundle */,
+				004491EB1874A12C008D2273 /* RRMMailLink.mailbundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,6 +77,9 @@
 		004491F41874A12C008D2273 /* RRMMailLink */ = {
 			isa = PBXGroup;
 			children = (
+				004492001874A16B008D2273 /* RRMMailLinkPlugin.h */,
+				004492011874A16B008D2273 /* RRMMailLinkPlugin.m */,
+				00D019951876F14000D55138 /* PrivateHeaders */,
 				004491F51874A12C008D2273 /* Supporting Files */,
 			);
 			path = RRMMailLink;
@@ -86,6 +93,14 @@
 				004491FA1874A12C008D2273 /* RRMMailLink-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		00D019951876F14000D55138 /* PrivateHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				00D019961876F17200D55138 /* HyperlinkEditor.h */,
+			);
+			name = PrivateHeaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -105,7 +120,7 @@
 			);
 			name = RRMMailLink;
 			productName = RRMMailLink;
-			productReference = 004491EB1874A12C008D2273 /* RRMMailLink.bundle */;
+			productReference = 004491EB1874A12C008D2273 /* RRMMailLink.mailbundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -150,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				004492021874A16B008D2273 /* RRMMailLinkPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,7 +260,7 @@
 				INFOPLIST_FILE = "RRMMailLink/RRMMailLink-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = bundle;
+				WRAPPER_EXTENSION = mailbundle;
 			};
 			name = Debug;
 		};
@@ -257,7 +273,7 @@
 				INFOPLIST_FILE = "RRMMailLink/RRMMailLink-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = bundle;
+				WRAPPER_EXTENSION = mailbundle;
 			};
 			name = Release;
 		};
@@ -280,6 +296,7 @@
 				004491FF1874A12C008D2273 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

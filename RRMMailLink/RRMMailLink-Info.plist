@@ -25,6 +25,10 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2014 Reed Mangino. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
-	<string></string>
+	<string>RRMMailLinkPlugin</string>
+	<key>SupportedPluginCompatibilityUUIDs</key>
+	<array>
+		<string>1CD40D64-945D-4D50-B12D-9CD865533506</string>
+	</array>
 </dict>
 </plist>
