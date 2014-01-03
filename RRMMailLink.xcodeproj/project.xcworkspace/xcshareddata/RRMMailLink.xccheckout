@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3586BA38-A8A2-4196-9489-C24A9A9A8648</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RRMMailLink</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>EE12CCA6-DFCE-46AE-A6C8-8444BCB31FDE</key>
+		<string>ssh://github.com/rmangino/RRMMailLink.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RRMMailLink.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>EE12CCA6-DFCE-46AE-A6C8-8444BCB31FDE</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/rmangino/RRMMailLink.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>EE12CCA6-DFCE-46AE-A6C8-8444BCB31FDE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EE12CCA6-DFCE-46AE-A6C8-8444BCB31FDE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RRMMailLink</string>
+		</dict>
+	</array>
+</dict>
+</plist>
