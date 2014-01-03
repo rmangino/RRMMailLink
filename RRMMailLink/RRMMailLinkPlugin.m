@@ -99,7 +99,7 @@ static void OverrideEditLinkMethod(id self, SEL _cmd)
         NSArray *arrayOfURLs     = [pasteboard readObjectsForClasses:classArray options:nil];
         
         if (arrayOfURLs.count > 0) {
-            NSURL* url = arrayOfURLs.firstObject;
+            NSURL* url = [arrayOfURLs objectAtIndex:0];
             
             tf.stringValue = url.absoluteString;
         }
