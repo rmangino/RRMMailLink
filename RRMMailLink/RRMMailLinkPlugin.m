@@ -90,22 +90,46 @@ void (*gOriginalEditLinkMethod)(id, SEL);
 //
 static void OverrideEditLinkMethod(id self, SEL _cmd)
 {
+	gOriginalEditLinkMethod(self, _cmd);
+		
     NSTextField* tf = [self valueForKey:@"_linkTextField"];
-    
-    if (tf && 0 == tf.stringValue.length ) {
-        
-        NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-        NSArray *classArray      = [NSArray arrayWithObject:[NSURL class]];
-        NSArray *arrayOfURLs     = [pasteboard readObjectsForClasses:classArray options:nil];
-        
-        if (arrayOfURLs.count > 0) {
-            NSURL* url = [arrayOfURLs objectAtIndex:0];
-            
-            tf.stringValue = url.absoluteString;
+    if (tf.stringValue.length == 0)
+	{
+		NSArray *classes = @[[NSURL class], [NSString class]];
+        NSArray *urls = [[NSPasteboard generalPasteboard] readObjectsForClasses:classes
+																		options:nil];
+        if (urls.count > 0)
+		{
+			NSURL *theURL = nil;
+			
+			id pasteboardItem = urls[0];
+			if ([pasteboardItem isKindOfClass:[NSURL class]])
+			{
+				theURL = (NSURL *)pasteboardItem;
+			}
+			else if ([pasteboardItem isKindOfClass:[NSString class]])
+			{
+				NSString *urlString = (NSString *)pasteboardItem;
+				NSRange range = [urlString rangeOfString:@"://"];
+				if (range.location != NSNotFound)
+				{
+					theURL = [NSURL URLWithString:urlString];
+					if (nil == theURL)
+					{
+						NSString *encodedURLString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+						theURL = [NSURL URLWithString:encodedURLString];
+					}
+				}
+			}
+			
+			if (nil != theURL)
+			{
+				tf.stringValue = theURL.absoluteString;
+				[self controlTextDidChange:nil];
+			}
         }
     }
     
-	gOriginalEditLinkMethod(self, _cmd);
 }
 
 @end
