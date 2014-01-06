@@ -36,10 +36,12 @@ static NSString* const RRMHyperlinkEditorClassName = @"HyperlinkEditor";
     [super initialize];
     
     Class mvMailBundleClass = NSClassFromString(RRMMVMailBundleName);
-    if (!mvMailBundleClass) {
+    if (!mvMailBundleClass)
+    {
         NSLog(@"%@: Unable to locate MVMailBundle", NSStringFromClass([RRMMailLinkPlugin class]));
     }
-    else {
+    else
+    {
         [RRMMailLinkPlugin registerBundle];
         NSLog(@"%@: Successfully loaded bundle", NSStringFromClass([RRMMailLinkPlugin class]));
     }
@@ -47,7 +49,8 @@ static NSString* const RRMHyperlinkEditorClassName = @"HyperlinkEditor";
 
 + (void)registerBundle
 {
-    if(class_getClassMethod(NSClassFromString(RRMMVMailBundleName), @selector(registerBundle))) {
+    if(class_getClassMethod(NSClassFromString(RRMMVMailBundleName), @selector(registerBundle)))
+    {
         [NSClassFromString(RRMMVMailBundleName) performSelector:@selector(registerBundle)];
     }
     
@@ -72,7 +75,8 @@ static NSString* const RRMHyperlinkEditorClassName = @"HyperlinkEditor";
                                        @selector(editLink),
                                        (IMP)OverrideEditLinkMethod,
                                        method_getTypeEncoding(originalMethod));
-    if (!methodAdded) {
+    if (!methodAdded)
+    {
         method_setImplementation(originalMethod, (IMP)OverrideEditLinkMethod);
     }
 }
@@ -86,50 +90,61 @@ void (*gOriginalEditLinkMethod)(id, SEL);
 // a valid URL on the pasteboard. If there is, copy that url's string into the sheet's
 // textfield.
 //
-// Don't do anything if the link textfield already contains a value.
+// If we add/modify a link in the textfield we automatically click the sheet's ok button to dismiss
+// the sheet.
 //
 static void OverrideEditLinkMethod(id self, SEL _cmd)
 {
 	gOriginalEditLinkMethod(self, _cmd);
 		
     NSTextField* tf = [self valueForKey:@"_linkTextField"];
-    if (tf.stringValue.length == 0)
-	{
-		NSArray *classes = @[[NSURL class], [NSString class]];
-        NSArray *urls = [[NSPasteboard generalPasteboard] readObjectsForClasses:classes
-																		options:nil];
-        if (urls.count > 0)
-		{
-			NSURL *theURL = nil;
-			
-			id pasteboardItem = urls[0];
-			if ([pasteboardItem isKindOfClass:[NSURL class]])
-			{
-				theURL = (NSURL *)pasteboardItem;
-			}
-			else if ([pasteboardItem isKindOfClass:[NSString class]])
-			{
-				NSString *urlString = (NSString *)pasteboardItem;
-				NSRange range = [urlString rangeOfString:@"://"];
-				if (range.location != NSNotFound)
-				{
-					theURL = [NSURL URLWithString:urlString];
-					if (nil == theURL)
-					{
-						NSString *encodedURLString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-						theURL = [NSURL URLWithString:encodedURLString];
-					}
-				}
-			}
-			
-			if (nil != theURL)
-			{
-				tf.stringValue = theURL.absoluteString;
-				[self controlTextDidChange:nil];
-			}
+
+    NSArray *classes = @[[NSURL class], [NSString class]];
+    NSArray *urls = [[NSPasteboard generalPasteboard] readObjectsForClasses:classes
+                                                                    options:nil];
+    if (urls.count > 0)
+    {
+        NSURL *theURL = nil;
+        
+        id pasteboardItem = urls[0];
+        if ([pasteboardItem isKindOfClass:[NSURL class]])
+        {
+            theURL = (NSURL *)pasteboardItem;
+        }
+        else if ([pasteboardItem isKindOfClass:[NSString class]])
+        {
+            NSString *urlString = (NSString *)pasteboardItem;
+            NSRange range = [urlString rangeOfString:@"://"];
+            if (NSNotFound != range.location)
+            {
+                theURL = [NSURL URLWithString:urlString];
+                if (nil == theURL)
+                {
+                    NSString *encodedURLString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    theURL = [NSURL URLWithString:encodedURLString];
+                }
+            }
+        }
+        
+        if (nil != theURL)
+        {
+            if (![tf.stringValue isEqualToString:theURL.absoluteString])
+            {
+                tf.stringValue = theURL.absoluteString;
+                [self controlTextDidChange:nil];
+                
+                NSButton* okButton = [self valueForKey:@"_okButton"];
+                if (okButton)
+                {
+                    double delayInSeconds = 1.0;
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                        [okButton performClick:self];
+                    });
+                }
+            }
         }
     }
-    
 }
 
 @end
