@@ -19,6 +19,12 @@ Aside from fixing one of my pet peeves with Mail.app, RRMMailLink provides a ver
     4. Copy RRMMailLink.mailbundle to ~/Library/Mail/Bundles
     5. Launch Mail.app
 
+*NOTE: Bundles aren't loaded by Mail.app unless the following defaults are set via Terminal:*
+
+* defaults write com.apple.mail EnableBundles -bool true
+* defaults write com.apple.mail BundleCompatibilityVersion 4 
+	* (or "Version 3"" for OS X 10.6)
+
 ## License
 
 The source code is distributed under the nonviral [MIT License](http://opensource.org/licenses/mit-license.php). It's the simplest, most permissive license available.
