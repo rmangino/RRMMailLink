@@ -134,14 +134,12 @@ static void OverrideEditLinkMethod(id self, SEL _cmd)
                 [self controlTextDidChange:nil];
                 
                 NSButton* okButton = [self valueForKey:@"_okButton"];
-                if (okButton)
-                {
-                    double delayInSeconds = 1.0;
-                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-                        [okButton performClick:self];
-                    });
-                }
+                [okButton performSelector:@selector(performClick:) withObject:self afterDelay:1.0];
+                
+                NSUserNotification *notification = [[NSUserNotification alloc] init];
+                [notification setTitle:@"Mail - Link Added"];
+                [notification setInformativeText:tf.stringValue];
+                [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
             }
         }
     }
