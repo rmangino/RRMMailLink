@@ -25,6 +25,12 @@ Aside from fixing one of my pet peeves with Mail.app, RRMMailLink provides a ver
 * defaults write com.apple.mail BundleCompatibilityVersion 4 
 	* (or "Version 3"" for OS X 10.6)
 
+Whenever Apple releases a new version of Mail.app we need to add a new UUID to the list of UUIDs our plugin supports. To determine the value of the new UUID:
+
+```$ defaults read /Applications/Mail.app/Contents/Info PluginCompatibilityUUID```
+
+Add the resulting string to the SupportedPluginCompatibilityUUIDs array in RRMMailLink-Info.plist.
+
 ## License
 
 The source code is distributed under the nonviral [MIT License](http://opensource.org/licenses/mit-license.php). It's the simplest, most permissive license available.
